@@ -1,0 +1,125 @@
+# .github/workflows/frontend-ci.yaml
+name: Frontend CI
+
+run-name: ${{ github.workflow }} - ${{ github.event_name }} by @${{ github.actor }}
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - frontend/**
+
+jobs:
+  eslint:
+    name: ESLint
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend/CRMAurivus
+
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      # Development uses npm, but CI uses yarn for faster installation
+      # First run: Generate yarn.lock and cache it
+      # Second run: Use cached yarn.lock to cache dependencies
+      # Subsequent runs: Use cached yarn.lock to use cached dependencies
+      - name: Cache yarn.lock
+        id: cache-yarn
+        uses: actions/cache@v4
+        with:
+          path: frontend/CRMAurivus/yarn.lock
+          key: yarn.lock-${{ hashFiles('frontend/CRMAurivus/package-lock.json') }}
+
+      - name: Use Node.js 22 without caching
+        if: steps.cache-yarn.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Use Node.js 22 with caching
+        if: steps.cache-yarn.outputs.cache-hit == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: frontend/CRMAurivus/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run ESLint
+        run: npx eslint .
+  storybook-tests:
+    name: Storybook Tests
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    # Run after eslint regardless of status
+    if: ${{ always() }}
+    needs: eslint
+
+    defaults:
+      run:
+        working-directory: frontend/CRMAurivus
+
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      # Development uses npm, but CI uses yarn for faster installation
+      # First run: Generate yarn.lock and cache it
+      # Second run: Use cached yarn.lock to cache dependencies
+      # Subsequent runs: Use cached yarn.lock to use cached dependencies
+      - name: Cache yarn.lock
+        id: cache-yarn
+        uses: actions/cache@v4
+        with:
+          path: frontend/CRMAurivus/yarn.lock
+          key: yarn.lock-${{ hashFiles('frontend/CRMAurivus/package-lock.json') }}
+
+      - name: Use Node.js 22 without caching
+        if: steps.cache-yarn.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Use Node.js 22 with caching
+        if: steps.cache-yarn.outputs.cache-hit == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: frontend/CRMAurivus/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Get Playwright version for cache key
+        id: get-playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(npx playwright --version)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: Playwright browsers - ${{ steps.get-playwright-version.outputs.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook"
