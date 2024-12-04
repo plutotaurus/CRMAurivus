@@ -12,9 +12,7 @@ public class UserRowmapper implements RowMapper<User> {
         return new User(
                 rs.getInt("id"),
                 rs.getString("username"),
-                rs.getString("passwordhash"),
-                rs.getString("salt"),
-                rs.getString("email")
+                rs.getString("passwordhash")
         );
     }
 }

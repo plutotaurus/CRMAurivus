@@ -1,30 +1,25 @@
 package plutotaurus.crm_aurivus.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import plutotaurus.crm_aurivus.domain.JWT;
 import plutotaurus.crm_aurivus.domain.UserLogin;
-import plutotaurus.crm_aurivus.service.LoginService;
+import plutotaurus.crm_aurivus.service.UserService;
 
 @RestController
-@RequestMapping("login")
+@AllArgsConstructor
+@RequestMapping("auth")
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
-public class LoginController {
+public class AuthenticatorController {
 
-    private final LoginService loginService;
+    private final UserService userService;
 
-    @Autowired
-    public LoginController(final LoginService loginService){
-        this.loginService = loginService;
-    }
-
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<JWT> login(@RequestBody UserLogin userLogin){
-
-        String token = loginService.login(userLogin.getUsername());
+        String token = userService.login(userLogin);
         return ResponseEntity.ok().body(new JWT(token));
-
     }
 }
 

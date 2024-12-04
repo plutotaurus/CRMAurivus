@@ -9,16 +9,11 @@ import plutotaurus.crm_aurivus.domain.User;
 import plutotaurus.crm_aurivus.dao.rowmapper.UserRowmapper;
 import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
 
+@AllArgsConstructor
 @Repository
 public class UserDao {
 
   private final JdbcTemplate jdbcTemplate;
-
-  @Autowired
-  public UserDao(final JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
-
 
   public User findUserbyUsername(String username) {
     try {
@@ -27,4 +22,10 @@ public class UserDao {
       throw new AuthenticationException("Invalid username or password");
     }
   }
+
+  public void create(User user) {
+    jdbcTemplate.update("INSERT INTO Users (username, passwordhash) VALUES (?, ?)",
+            user.getUsername(), user.getPasswordhash());
+  }
+
 }

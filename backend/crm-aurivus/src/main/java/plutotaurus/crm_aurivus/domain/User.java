@@ -9,6 +9,4 @@ public class User {
     private int id;
     private String username;
     private String passwordhash;
-    private String salt;
-    private String email;
 }
