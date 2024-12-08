@@ -5,7 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import plutotaurus.crm_aurivus.domain.User;
-import plutotaurus.crm_aurivus.dao.rowmapper.UserRowmapper;
+import plutotaurus.crm_aurivus.dao.rowmapper.UserRowMapper;
 import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
 
 @AllArgsConstructor
@@ -16,7 +16,7 @@ public class UserDao {
 
   public User findUserbyUsername(String username) {
     try {
-      return jdbcTemplate.queryForObject("SELECT * FROM Users WHERE username = ?", new UserRowmapper(), username);
+      return jdbcTemplate.queryForObject("SELECT * FROM Users WHERE username = ?", new UserRowMapper(), username);
     } catch (EmptyResultDataAccessException exception) {
       throw new AuthenticationException("Invalid username or password");
     }
