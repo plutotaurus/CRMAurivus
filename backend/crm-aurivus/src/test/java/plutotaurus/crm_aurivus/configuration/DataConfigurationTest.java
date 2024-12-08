@@ -24,8 +24,11 @@ public class DataConfigurationTest {
     DataSource dataSource = applicationContext.getBean(DataSource.class);
 
     // Assert
-    assertNotNull(dataSource);
-    assertInstanceOf(EmbeddedDatabase.class, dataSource);
+    assertAll(
+           () -> assertNotNull(dataSource),
+            () ->     assertInstanceOf(EmbeddedDatabase.class, dataSource)
+
+    );
   }
 }
 

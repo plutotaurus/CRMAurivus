@@ -39,11 +39,13 @@ class UserConfigurationTest {
          User createdUser = userCaptor.getValue();
 
          // Assert
-         assertEquals(1, createdUser.getId());
-         assertEquals("usereen", createdUser.getUsername());
-         assertEquals(encryptedPassword, createdUser.getPasswordhash());
+         assertAll(
+                 () -> assertEquals(1, createdUser.getId()),
+                 () -> assertEquals("usereen", createdUser.getUsername()),
+                 () -> assertEquals(encryptedPassword, createdUser.getPasswordhash()),
+                 () -> verify(passwordService).encryptPassword("user1!"),
+                 () -> verify(userService).create(any(User.class))
 
-         verify(passwordService).encryptPassword("user1!");
-         verify(userService).create(any(User.class));
+         );
      }
 }
