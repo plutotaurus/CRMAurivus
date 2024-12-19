@@ -42,4 +42,5 @@ footer {
 
 footer > p {
   margin-left: 1rem;
+  color: var(--yellow)
 }
