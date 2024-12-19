@@ -4,11 +4,11 @@ import "../components/general/general.css";
 import Footer from "../components/general/Footer";
 
 export default function Root() {
-    return(
-        <div>
-            <Header />
-                <Outlet />
-            <Footer />
-        </div>
-    )
+  return (
+    <div>
+      <Header />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 }
