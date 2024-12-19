@@ -22,7 +22,7 @@ class AuthenticatorControllerTest {
 
   private final String token = "mock-token";
   private final JWT jwt = new JWT(token);
-  private final UserLogin userLogin = new UserLogin("username", "password"); // The login request
+  private final UserLogin userLogin = new UserLogin("username", "password");
   @Mock private UserService userService;
   @InjectMocks private AuthenticatorController sut;
 
