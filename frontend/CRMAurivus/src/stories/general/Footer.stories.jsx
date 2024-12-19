@@ -1,6 +1,6 @@
 import { expect, within } from "@storybook/test";
 import { MemoryRouter } from "react-router-dom";
-import "../../components/general/general.css";
+import "../../routes/Root/root.css";
 import Footer from "../../components/general/Footer";
 
 export default {

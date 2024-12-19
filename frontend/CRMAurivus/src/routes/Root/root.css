@@ -1,6 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
+.root-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  justify-content: space-around;
+}
+
+.content {
+  flex: 1;
+}
+
 p {
   font-family: "Open Sans", sans-serif;
 }
@@ -19,10 +34,6 @@ h1 {
 
 header {
   background-color: var(--blue);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -34,13 +45,13 @@ header > img {
 
 footer {
   background-color: var(--blue);
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
+
 }
+
 
 footer > p {
   margin-left: 1rem;
   color: var(--yellow)
 }
+

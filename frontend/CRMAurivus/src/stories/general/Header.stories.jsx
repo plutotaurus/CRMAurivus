@@ -1,7 +1,6 @@
 import Header from "../../components/general/Header";
-import "../../components/general/general.css";
+import "../../routes/Root/root.css";
 import { expect, within } from "@storybook/test";
-
 import { MemoryRouter } from "react-router-dom";
 
 export default {
