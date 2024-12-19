@@ -1,19 +1,16 @@
 package plutotaurus.crm_aurivus.service;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.stereotype.Service;
-import plutotaurus.crm_aurivus.configuration.JwtConfiguration;
-import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
-
-
-import javax.crypto.SecretKey;
-
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
-
-import static java.time.temporal.ChronoUnit.DAYS;
+import javax.crypto.SecretKey;
+import org.springframework.stereotype.Service;
+import plutotaurus.crm_aurivus.configuration.JwtConfiguration;
+import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
 
 @Service
 public class JwtService {

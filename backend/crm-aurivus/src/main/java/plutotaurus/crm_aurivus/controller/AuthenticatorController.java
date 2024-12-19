@@ -13,12 +13,11 @@ import plutotaurus.crm_aurivus.service.UserService;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class AuthenticatorController {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<JWT> login(@RequestBody UserLogin userLogin){
-        String token = userService.login(userLogin);
-        return ResponseEntity.ok().body(new JWT(token));
-    }
+  @PostMapping("/login")
+  public ResponseEntity<JWT> login(@RequestBody UserLogin userLogin) {
+    String token = userService.login(userLogin);
+    return ResponseEntity.ok().body(new JWT(token));
+  }
 }
-

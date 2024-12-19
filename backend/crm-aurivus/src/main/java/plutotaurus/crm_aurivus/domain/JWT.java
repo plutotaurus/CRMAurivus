@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class JWT {
-    private String token;
+  private String token;
 }

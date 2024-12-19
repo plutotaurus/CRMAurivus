@@ -4,11 +4,12 @@ import lombok.Getter;
 import plutotaurus.crm_aurivus.domain.Error;
 
 @Getter
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
 
-    private final Error error;
-    public CustomException(String message) {
-        super(message);
-        this.error = new Error(message);
-    }
+  private final Error error;
+
+  public CustomException(String message) {
+    super(message);
+    this.error = new Error(message);
+  }
 }

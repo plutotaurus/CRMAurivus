@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import plutotaurus.crm_aurivus.domain.User;
 import plutotaurus.crm_aurivus.dao.rowmapper.UserRowMapper;
+import plutotaurus.crm_aurivus.domain.User;
 import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
 
 @AllArgsConstructor

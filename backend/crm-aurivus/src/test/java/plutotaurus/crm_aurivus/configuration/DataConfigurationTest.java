@@ -1,6 +1,8 @@
 package plutotaurus.crm_aurivus.configuration;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import javax.sql.DataSource;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import javax.sql.DataSource;
 
 @AllArgsConstructor
 @SpringBootTest
@@ -25,10 +26,7 @@ public class DataConfigurationTest {
 
     // Assert
     assertAll(
-           () -> assertNotNull(dataSource),
-            () ->     assertInstanceOf(EmbeddedDatabase.class, dataSource)
-
-    );
+        () -> assertNotNull(dataSource),
+        () -> assertInstanceOf(EmbeddedDatabase.class, dataSource));
   }
 }
-

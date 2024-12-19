@@ -1,5 +1,10 @@
 package plutotaurus.crm_aurivus.controller;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,11 +16,6 @@ import org.springframework.http.ResponseEntity;
 import plutotaurus.crm_aurivus.domain.JWT;
 import plutotaurus.crm_aurivus.domain.UserLogin;
 import plutotaurus.crm_aurivus.service.UserService;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticatorControllerTest {

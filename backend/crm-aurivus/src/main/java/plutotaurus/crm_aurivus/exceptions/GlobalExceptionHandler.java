@@ -10,9 +10,8 @@ import plutotaurus.crm_aurivus.domain.Error;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<Error> handleAuthenticationException(AuthenticationException ex) {
-        return new ResponseEntity<>(ex.getError(), HttpStatus.UNAUTHORIZED);
-    }
-
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<Error> handleAuthenticationException(AuthenticationException ex) {
+    return new ResponseEntity<>(ex.getError(), HttpStatus.UNAUTHORIZED);
+  }
 }

@@ -12,12 +12,12 @@ import plutotaurus.crm_aurivus.service.UserService;
 @Configuration
 public class UserConfiguration implements ApplicationRunner {
 
-    private final PasswordService passwordService;
-    private final UserService userService;
+  private final PasswordService passwordService;
+  private final UserService userService;
 
-    @Override
-    public void run(ApplicationArguments args) {
-        User user1 = new User(1, "usereen", passwordService.encryptPassword("user1!"));
-        userService.create(user1);
-    }
+  @Override
+  public void run(ApplicationArguments args) {
+    User user1 = new User(1, "usereen", passwordService.encryptPassword("user1!"));
+    userService.create(user1);
+  }
 }
