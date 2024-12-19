@@ -18,49 +18,70 @@ import plutotaurus.crm_aurivus.exceptions.AuthenticationException;
 
 @ExtendWith(MockitoExtension.class)
 class UserDaoTest {
-    private final User user = new User(1, "username", "password");
-    @Mock private JdbcTemplate jdbcTemplate;
-    @InjectMocks private  UserDao sut;
+  private final User user = new User(1, "username", "password");
+  @Mock private JdbcTemplate jdbcTemplate;
+  @InjectMocks private UserDao sut;
 
-    @Test
-    void testFindUserByUsernameSuccessful() {
-        //Arrange
-        when(jdbcTemplate.queryForObject(eq("SELECT * FROM Users WHERE username = ?"), any(UserRowMapper.class), eq(user.getUsername()))).thenReturn(user);
+  @Test
+  void testFindUserByUsernameSuccessful() {
+    // Arrange
+    when(jdbcTemplate.queryForObject(
+            eq("SELECT * FROM Users WHERE username = ?"),
+            any(UserRowMapper.class),
+            eq(user.getUsername())))
+        .thenReturn(user);
 
-        //Act
-        User result = sut.findUserByUsername(user.getUsername());
+    // Act
+    User result = sut.findUserByUsername(user.getUsername());
 
-        //Assert
-        assertAll(
-                () -> verify(jdbcTemplate).queryForObject(eq("SELECT * FROM Users WHERE username = ?"), any( UserRowMapper.class), eq(user.getUsername())),
-        () -> assertEquals(user, result)
-        );
-      }
-      @Test
-      void testFindUserByUsernameUnsuccessful(){
-          //Arrange
-       when(jdbcTemplate.queryForObject(eq("SELECT * FROM Users WHERE username = ?"), any(UserRowMapper.class), eq(user.getUsername()))).thenThrow(EmptyResultDataAccessException.class);
+    // Assert
+    assertAll(
+        () ->
+            verify(jdbcTemplate)
+                .queryForObject(
+                    eq("SELECT * FROM Users WHERE username = ?"),
+                    any(UserRowMapper.class),
+                    eq(user.getUsername())),
+        () -> assertEquals(user, result));
+  }
+
+  @Test
+  void testFindUserByUsernameUnsuccessful() {
+    // Arrange
+    when(jdbcTemplate.queryForObject(
+            eq("SELECT * FROM Users WHERE username = ?"),
+            any(UserRowMapper.class),
+            eq(user.getUsername())))
+        .thenThrow(EmptyResultDataAccessException.class);
 
     // Act
     AuthenticationException exception =
         assertThrows(
             AuthenticationException.class, () -> sut.findUserByUsername(user.getUsername()));
 
-          //Assert
-          assertAll(
-                  () -> verify(jdbcTemplate).queryForObject(eq("SELECT * FROM Users WHERE username = ?"), any( UserRowMapper.class), eq(user.getUsername())),
-                  () -> assertEquals("Invalid username or password", exception.getMessage())
-          );
-      }
+    // Assert
+    assertAll(
+        () ->
+            verify(jdbcTemplate)
+                .queryForObject(
+                    eq("SELECT * FROM Users WHERE username = ?"),
+                    any(UserRowMapper.class),
+                    eq(user.getUsername())),
+        () -> assertEquals("Invalid username or password", exception.getMessage()));
+  }
 
-    @Test
-    void testCreate() {
-        //Act
-        sut.create(user);
+  @Test
+  void testCreate() {
+    // Act
+    sut.create(user);
 
-        //Assert
-        assertAll(
-                () -> verify(jdbcTemplate).update(eq("INSERT INTO Users (username, passwordhash) VALUES (?, ?)"), eq(user.getUsername()), eq(user.getPasswordhash()))
-        );
-      }
+    // Assert
+    assertAll(
+        () ->
+            verify(jdbcTemplate)
+                .update(
+                    eq("INSERT INTO Users (username, passwordhash) VALUES (?, ?)"),
+                    eq(user.getUsername()),
+                    eq(user.getPasswordhash())));
+  }
 }
