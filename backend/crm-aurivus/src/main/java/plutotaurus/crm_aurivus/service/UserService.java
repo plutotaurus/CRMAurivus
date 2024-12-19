@@ -16,7 +16,7 @@ public class UserService {
   private final JwtService jwtService;
 
   public String login(UserLogin userLogin) {
-    User user = userDao.findUserbyUsername(userLogin.getUsername());
+    User user = userDao.findUserByUsername(userLogin.getUsername());
     if (passwordService.validatePassword(userLogin.getPassword(), user.getPasswordhash())) {
       return jwtService.generateToken(user.getUsername());
     } else {

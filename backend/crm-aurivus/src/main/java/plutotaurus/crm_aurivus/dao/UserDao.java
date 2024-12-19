@@ -14,7 +14,7 @@ public class UserDao {
 
   private final JdbcTemplate jdbcTemplate;
 
-  public User findUserbyUsername(String username) {
+  public User findUserByUsername(String username) {
     try {
       return jdbcTemplate.queryForObject("SELECT * FROM Users WHERE username = ?", new UserRowMapper(), username);
     } catch (EmptyResultDataAccessException exception) {

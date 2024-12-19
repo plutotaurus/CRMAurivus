@@ -36,7 +36,7 @@ class PasswordServiceTest {
 
   @DisplayName("Valid password validation")
   @Test
-  void testValidatePassword_Success() {
+  void testValidatePasswordSuccess() {
     // Arrange
     when(bCryptPasswordEncoder.matches(plainPassword, hashedPassword)).thenReturn(true);
 
@@ -49,7 +49,7 @@ class PasswordServiceTest {
 
   @DisplayName("Invalid password validation")
   @Test
-  void testValidatePassword_Failure() {
+  void testValidatePasswordFailure() {
     // Arrange
     when(bCryptPasswordEncoder.matches(plainPassword, hashedPassword)).thenReturn(false);
 
