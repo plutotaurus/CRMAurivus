@@ -1,0 +1,20 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.inputfieldAndLabel{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 10px
+}
+
+.inputfieldAndLabel label {
+    width: 100px; 
+  }
+  
+  .inputfieldAndLabel input {
+    flex: 1;
+  }

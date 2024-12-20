@@ -11,12 +11,15 @@
   top: 0;
   justify-content: space-around;
 }
-
+body{
+  height: auto;
+  overflow: hidden;
+}
 .content {
   flex: 1;
 }
 
-p {
+p, label, button {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -55,3 +58,6 @@ footer > p {
   color: var(--yellow)
 }
 
+button{
+  border: solid 1px black;
+}

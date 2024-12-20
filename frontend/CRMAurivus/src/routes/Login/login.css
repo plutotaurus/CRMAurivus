@@ -1,0 +1,17 @@
+.loginForm {
+  display: flex;
+  text-align: center;
+  height: 86vh;
+  background-image: url("./background.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  }
+
+.loginForm > .form {
+    align-self: center;
+    margin: auto;
+    background-color: white;
+    opacity: 90%;
+    padding: 1rem;
+}
+
